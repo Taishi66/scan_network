@@ -15,5 +15,9 @@ do
 	ping -c 1 $OCTETS.$ip | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" >> $OCTETS.txt
 done 
 
-cat $OCTETS.txt
+cat $OCTETS.txt | sort > sorted_$OCTETS.txt
 
+#perform scan
+nmap -sS --top-ports 20 -iL sorted_$OCTETS.txt
+
+exit
